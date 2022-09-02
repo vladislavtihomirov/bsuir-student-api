@@ -6,16 +6,13 @@ from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker
 
 
-env = "segmentation"
-ENV = os.environ['env']
-
 CONFIG_PATH = os.path.relpath(
     os.path.join(
         os.path.dirname(
             os.path.dirname(
                 os.path.abspath(__file__)
             )
-        ), 'conf/dbs.ini')
+        ), 'conf/dbs.test.ini')
 )
 
 if not os.path.exists(CONFIG_PATH):
@@ -28,8 +25,8 @@ config.read(CONFIG_PATH)
 Base = declarative_base()
 
 
-def get_session(db_name, env=ENV):
-    db_config = config[db_name + '-' + env]
+def get_session(db_name):
+    db_config = config[db_name]
     user = db_config["user"].replace('"', '')
     pswd = db_config["pass"].replace('"', '')
     host = db_config["host"].replace('"', '')
