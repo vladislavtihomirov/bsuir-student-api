@@ -1,0 +1,14 @@
+version: '3'
+
+services:
+
+  app:
+    build:
+      context: .
+    volumes:
+        - .:/code:rw
+    ports:
+      - "80:8000"
+    image: bsuir-student:v0
+
+
