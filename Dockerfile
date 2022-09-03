@@ -1,9 +1,9 @@
-FROM python3.9-alpine3.12
+FROM python:3.9.0-alpine3.12
 
 RUN mkdir /code
 WORKDIR /code
 COPY requirements.txt /code/
-#
+
 RUN apk update \
     && apk add --virtua .build-deps postgresql-dev \
          gcc python3-dev musl-dev librdkafka-dev \
