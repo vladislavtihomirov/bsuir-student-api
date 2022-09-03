@@ -17,4 +17,9 @@ class StatusResponse(JSONResponse):
 
 api_router = APIRouter(default_response_class=StatusResponse)
 
+@api_router.get('ping')
+def pong():
+    return pong
+
+
 api_router.include_router(auth.router, prefix="/auth", tags=["auth"])

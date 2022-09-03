@@ -9,6 +9,7 @@ from schemas.auth import AuthSchema
 router = APIRouter()
 
 
+
 @router.post('/update')
 async def get_users(
         auth: AuthSchema,
