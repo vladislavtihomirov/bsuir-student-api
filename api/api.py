@@ -18,7 +18,7 @@ class StatusResponse(JSONResponse):
 api_router = APIRouter(default_response_class=StatusResponse)
 
 
-@api_router.get('ping')
+@api_router.get('/ping')
 def pong():
     return pong
 
