@@ -1,16 +1,16 @@
-FROM python:3.9.0-alpine3.12
+FROM tiangolo/uvicorn-gunicorn-fastapi:python3.9-alpine3.14
 
 RUN mkdir /code
 WORKDIR /code
 COPY requirements.txt /code/
-
-RUN apk update \
-    && apk add --virtua .build-deps postgresql-dev \
-         gcc python3-dev musl-dev librdkafka-dev \
-    && apk add librdkafka postgresql-libs libffi-dev make libevent-dev build-base\
-    && pip install --upgrade pip \
-    && pip install --no-cache-dir -r /code/requirements.txt \
-    && apk del .build-deps
+#
+#RUN apk update \
+#    && apk add --virtua .build-deps postgresql-dev \
+#         gcc python3-dev musl-dev librdkafka-dev \
+#    && apk add librdkafka postgresql-libs libffi-dev make libevent-dev build-base\
+#    && pip install --upgrade pip \
+#    && pip install --no-cache-dir -r /code/requirements.txt \
+#    && apk del .build-deps
 
 COPY . /code
 
@@ -19,4 +19,4 @@ ENV env="test"
 
 EXPOSE 8000
 
-RUN python main.py
+# RUN python main.py
