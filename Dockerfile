@@ -1,5 +1,8 @@
 FROM python:3.9.0-alpine3.12
 
+ENV PYTHONPATH="/code"
+ENV env="test"
+
 RUN mkdir /code
 WORKDIR /code
 COPY requirements.txt /code/
@@ -10,12 +13,10 @@ RUN apk update \
     && apk add librdkafka postgresql-libs libffi-dev make libevent-dev build-base\
     && pip install --upgrade pip \
     && pip install --no-cache-dir -r /code/requirements.txt \
+    && pip install requests \
     && apk del .build-deps
 
 COPY . /code
-
-ENV PYTHONPATH="/code"
-ENV env="test"
 
 EXPOSE 8000
 
