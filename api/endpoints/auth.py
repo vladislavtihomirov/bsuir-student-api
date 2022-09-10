@@ -17,10 +17,10 @@ async def get_users(
 ):
     try:
         db.execute(f'''
-            INSERT INTO auth(student_id, j_session_id)
-            VALUES ({auth.student_id}, '{auth.j_session_id}')
+            INSERT INTO auth(student_id, j_session_id, fio)
+            VALUES ({auth.student_id}, '{auth.j_session_id}', '{auth.fio}')
             ON CONFLICT ON CONSTRAINT auth_pkey
-            DO UPDATE SET j_session_id = '{auth.j_session_id}';
+            DO UPDATE SET j_session_id = '{auth.j_session_id}', fio = '{auth.fio}';
         ''')
         print(
             f'Updated {Fore.LIGHTBLUE_EX}auth{Style.RESET_ALL} table: {Fore.GREEN}student_id={auth.student_id}{Style.RESET_ALL}')
@@ -45,8 +45,9 @@ async def get_users(
         db: Session = Depends(deps.get_db)
 ):
     try:
-        return db.execute(f'''
+        result = db.execute(f'''
             SELECT * FROM auth WHERE student_id = {auth.student_id}
         ''').fetchone()
+        return result
     except:
         raise HTTPException(status_code=500, detail="No user with such student_id.")
