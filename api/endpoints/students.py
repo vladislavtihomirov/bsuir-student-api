@@ -14,7 +14,7 @@ async def check_users(
     try:
         return db.execute(f'''
             SELECT fio FROM auth
-            WHERE fio in ({', '.join(users.users)});
+            WHERE fio in ({', '.join(list(map(lambda x: "'" + x + "'", users.users)))});
         ''').fetchall()
     except:
-        raise HTTPException(status_code=500, detail="Can't update token.")
+        raise HTTPException(status_code=500, detail="Some error occurred")
